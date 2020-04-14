@@ -15,7 +15,7 @@ module.exports = (function(){
     app.post('/encrypt', (req,res) => {
         var body = req.body
         var options = {
-            hostname: 'tntjslwzzst.SANDBOX.verygoodproxy.com',
+            hostname: process.env.FORWARD_HTTPS_PROXY_HOST,
             port: 443,
             path: '/post',
             method: 'POST',
