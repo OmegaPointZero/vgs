@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>VGS Test App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />        
+        <link rel="stylesheet" type="text/css" href="/css/menu.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- add JQuery -->
+        <script src="/js/menu.js"></script>
+    </head>
+    <body>
+        <div class="container" id="main">
+          <h1>
+            VGS Data Encrypter/Decrypter
+          </h1>
+        <ul class="tabs">
+	        <li class="tab-link <%if(!message){%>current<%}%>" data-tab="tab-1">Encrypt</li>
+            
+	        <li class="tab-link" data-tab="tab-2">Decrypt</li>
+            <%if(message){%>
+	        <li class="tab-link current" data-tab="tab-3">Message</li>            
+            <%}%>
+        </ul>
+	    <div id="tab-1" class="tab-content <%if(!message){%>current<%}%>">
+          <form action="/encrypt" method="POST" encoding="JSON">
+            <input type="text" name="CC" placeholder="&nbsp;Credit Card Number">
+            <input type="text" name="CVV" placeholder="&nbsp;CVV">
+            <input type="text" name="EXP" placeholder="&nbsp;Expiration Date">        
+            <br><br>
+            <button type="submit">Encrypt!</button>
+          </form>
+	    </div>
+	    <div id="tab-2" class="tab-content">
+          <form action="/decrypt" method="POST" encoding="JSON">
+            <input type="text" name="CC" placeholder="&nbsp;Credit Card Number">
+            <input type="text" name="CVV" placeholder="&nbsp;CVV">
+            <input type="text" name="EXP" placeholder="&nbsp;Expiration Date">        
+            <br><br>
+            <button type="submit">Decrypt!</button>
+          </form>
+	    </div>
+            <div id="tab-3" class="tab-content <%if(message){%>current<%}%>">
+                <div class="message">
+                    <% if(message.alertType == "encrypt"){ %>
+                        <div>CC Info Encrypted Successfully! Results:</div>
+                        <div>CC: <%=JSON.stringify(message.json.CC)%></div>
+                        <div>CVV: <%=JSON.stringify(message.json.CVV)%></div>
+                        <div>EXP: <%=JSON.stringify(message.json.EXP)%></div> 
+                    <% } else if(message.alertType =="decrypt") {%>
+                        <div>CC Info Decrypted Successfully! Results:</div>
+                        <div>CC: <%=JSON.stringify(message.json.CC)%></div>
+                        <div>CVV: <%=JSON.stringify(message.json.CVV)%></div>
+                        <div>EXP: <%=JSON.stringify(message.json.EXP)%></div>                     
+                    <% } %>
+                </div><br>
+            </div>
+        </div>
+
+    </body>
+</html>
